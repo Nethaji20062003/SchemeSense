@@ -1,115 +1,668 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SchemeSense AI | Dashboard</title>
-<style>
-:root{--navy:#14213d;--blue:#2563eb;--text:#1f2937;--muted:#64748b}
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#eef4ff,#f8fbff);color:var(--text);min-height:100vh}
-header{background:linear-gradient(120deg,#14213d,#234e91);color:white;padding:24px 6%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;box-shadow:0 4px 18px #14213d22}
-header h1{margin:0;font-size:26px}
-header p{margin:7px 0 0;color:#dbeafe;font-size:14px}
-.logout{color:white;text-decoration:none;border:1px solid #ffffff88;padding:10px 15px;border-radius:9px}
-main{max-width:1150px;margin:35px auto;padding:0 20px}
-.welcome{margin-bottom:25px}
-.welcome h2{color:var(--navy);margin-bottom:8px}
-.welcome p{color:var(--muted);line-height:1.6}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.card{background:white;border:1px solid #e0e8f5;border-radius:17px;padding:24px;box-shadow:0 8px 24px #19365c0b;display:flex;flex-direction:column;min-height:235px;transition:transform .2s,box-shadow .2s}
-.card:hover{transform:translateY(-4px);box-shadow:0 14px 30px #19365c18}
-.icon{font-size:35px;margin-bottom:14px}
-.card h3{color:var(--navy);margin:0 0 10px;font-size:19px}
-.card p{color:var(--muted);font-size:14px;line-height:1.6;flex:1}
-.card button{background:var(--blue);color:white;border:0;padding:12px 14px;border-radius:9px;font-weight:bold;cursor:pointer;font-size:14px}
-.card button:hover{background:#1d4ed8}
-.card button:focus-visible{outline:3px solid #93c5fd;outline-offset:3px}
-.note{background:#fff8e6;border-left:4px solid #e6a817;padding:14px 16px;border-radius:8px;color:#66521c;line-height:1.6;font-size:13px;margin-top:25px}
-footer{text-align:center;color:#64748b;font-size:13px;padding:25px}
-@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:560px){header h1{font-size:22px}.grid{grid-template-columns:1fr}main{margin-top:24px;padding:0 15px}.card{min-height:210px}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SchemeSense AI - Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #eef2ff, #f8faff);
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        header {
+            background: #172554;
+            color: white;
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header h1 {
+            font-size: 27px;
+            letter-spacing: 0.5px;
+        }
+
+        header p {
+            margin-top: 6px;
+            color: #c7d2fe;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            background: white;
+            color: #172554;
+            border: none;
+            padding: 11px 22px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: #dbeafe;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 38px 24px;
+        }
+
+        .welcome-section {
+            margin-bottom: 30px;
+        }
+
+        .welcome-section h2 {
+            font-size: 29px;
+            color: #172554;
+            margin-bottom: 10px;
+        }
+
+        .welcome-section p {
+            color: #64748b;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .section-title {
+            font-size: 21px;
+            color: #172554;
+            margin-bottom: 20px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.07);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+        }
+
+        .card-icon {
+            font-size: 36px;
+            margin-bottom: 17px;
+        }
+
+        .category-card h3 {
+            font-size: 19px;
+            color: #172554;
+            margin-bottom: 12px;
+        }
+
+        .category-card p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 22px;
+            flex-grow: 1;
+        }
+
+        .continue-btn {
+            width: 100%;
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .continue-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Information section */
+
+        .information-panel {
+            display: none;
+            background: white;
+            margin-top: 30px;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #dbeafe;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.07);
+        }
+
+        .information-panel h2 {
+            color: #172554;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .information-panel p {
+            color: #475569;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .information-panel h3 {
+            color: #1e40af;
+            margin-top: 22px;
+            margin-bottom: 12px;
+        }
+
+        .information-panel ul {
+            padding-left: 23px;
+            color: #475569;
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            background: #172554;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .back-btn:hover {
+            background: #1e40af;
+        }
+
+        .notice {
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            color: #1e3a8a;
+            line-height: 1.7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        @media (max-width: 900px) {
+            .category-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 23px;
+            }
+
+            .container {
+                padding: 25px 16px;
+            }
+
+            .welcome-section h2 {
+                font-size: 24px;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-card {
+                padding: 22px;
+            }
+
+            .information-panel {
+                padding: 22px;
+            }
+        }
+    </style>
 </head>
+
 <body>
+
 <header>
- <div>
-  <h1>🎓 SchemeSense AI</h1>
-  <p>Discover education support and welfare schemes</p>
- </div>
- <a class="logout" href="login.html" onclick="logout()">Log out</a>
+    <div>
+        <h1>🎓 SchemeSense AI</h1>
+        <p>AI-Powered Tamil Nadu Government Scheme Assistant</p>
+    </div>
+
+    <button class="logout-btn" type="button" onclick="logout()">
+        Logout
+    </button>
 </header>
 
-<main>
- <section class="welcome">
-  <h2>Welcome to your Dashboard 👋</h2>
-  <p>Choose a category to explore relevant scheme information. Recommendations are only starting points; always verify eligibility and deadlines on the official portal.</p>
- </section>
+<main class="container">
 
- <section class="grid">
-  <article class="card">
-   <div class="icon">🏫</div>
-   <h3>School Scholarships</h3>
-   <p>Explore scholarship information for school students based on class, school type, income and other details.</p>
-   <button type="button" onclick="openPage('school_scholarships.html')">Continue →</button>
-  </article>
+    <section class="welcome-section" id="welcomeSection">
+        <h2>Welcome to SchemeSense AI 👋</h2>
 
-  <article class="card">
-   <div class="icon">🎓</div>
-   <h3>College Scholarships</h3>
-   <p>Find possible scholarship leads for Diploma, UG, PG and research students using education and family details.</p>
-   <button type="button" onclick="openPage('college_scholarships.html')">Continue →</button>
-  </article>
+        <p>
+            Discover scholarships, financial assistance and welfare schemes.
+            Choose a category below to explore relevant information.
+        </p>
+    </section>
 
-  <article class="card">
-   <div class="icon">💡</div>
-   <h3>Student Project Funding</h3>
-   <p>Explore information about possible support for student innovation, projects and entrepreneurship.</p>
-   <button type="button" onclick="showMessage('Student Project Funding')">Continue →</button>
-  </article>
+    <h2 class="section-title" id="categoryHeading">
+        Explore Categories
+    </h2>
 
-  <article class="card">
-   <div class="icon">👵</div>
-   <h3>Senior Citizen Welfare</h3>
-   <p>Explore general information about welfare schemes and support for senior citizens.</p>
-   <button type="button" onclick="showMessage('Senior Citizen Welfare')">Continue →</button>
-  </article>
+    <section class="category-grid" id="categoryGrid">
 
-  <article class="card">
-   <div class="icon">🤝</div>
-   <h3>Community-Based Scholarships</h3>
-   <p>Review scholarship information that may depend on category and the scheme's official requirements.</p>
-   <button type="button" onclick="showMessage('Community-Based Scholarships')">Continue →</button>
-  </article>
+        <!-- 1. School Scholarships -->
+        <article class="category-card">
+            <div class="card-icon">🏫</div>
 
-  <article class="card">
-   <div class="icon">💙</div>
-   <h3>Single-Parent Student Support</h3>
-   <p>Explore possible education support information for students from single-parent families.</p>
-   <button type="button" onclick="showMessage('Single-Parent Student Support')">Continue →</button>
-  </article>
- </section>
+            <h3>School Scholarships</h3>
 
- <div class="note">
-  <strong>Important:</strong> SchemeSense AI is a student project prototype. It does not confirm eligibility, submit applications, or guarantee scholarship approval. Verify all conditions, documents and deadlines through official sources.
- </div>
+            <p>
+                Explore scholarship opportunities and educational assistance
+                for school students.
+            </p>
+
+            <button
+                class="continue-btn"
+                type="button"
+                onclick="openPage('school_scholarships.html')">
+                Continue →
+            </button>
+        </article>
+
+        <!-- 2. College Scholarships -->
+        <article class="category-card">
+            <div class="card-icon">🎓</div>
+
+            <h3>College Scholarships</h3>
+
+            <p>
+                Find scholarship opportunities and financial support
+                for college and university students.
+            </p>
+
+            <button
+                class="continue-btn"
+                type="button"
+                onclick="openPage('college_scholarships.html')">
+                Continue →
+            </button>
+        </article>
+
+        <!-- 3. Student Project Funding -->
+        <article class="category-card">
+            <div class="card-icon">💡</div>
+
+            <h3>Student Project Funding</h3>
+
+            <p>
+                Explore potential funding opportunities for student projects,
+                innovation, prototypes and research.
+            </p>
+
+            <button
+                class="continue-btn"
+                type="button"
+                onclick="showMessage('Student Project Funding')">
+                Continue →
+            </button>
+        </article>
+
+        <!-- 4. Senior Citizen Welfare -->
+        <article class="category-card">
+            <div class="card-icon">👴</div>
+
+            <h3>Senior Citizen Welfare</h3>
+
+            <p>
+                Learn about welfare assistance, social security and support
+                services for senior citizens.
+            </p>
+
+            <button
+                class="continue-btn"
+                type="button"
+                onclick="showMessage('Senior Citizen Welfare')">
+                Continue →
+            </button>
+        </article>
+
+        <!-- 5. Community-Based Scholarships -->
+        <article class="category-card">
+            <div class="card-icon">🤝</div>
+
+            <h3>Community-Based Scholarships</h3>
+
+            <p>
+                Explore educational assistance that may be available
+                based on community and eligibility criteria.
+            </p>
+
+            <button
+                class="continue-btn"
+                type="button"
+                onclick="showMessage('Community-Based Scholarships')">
+                Continue →
+            </button>
+        </article>
+
+        <!-- 6. Single-Parent Student Support -->
+        <article class="category-card">
+            <div class="card-icon">❤️</div>
+
+            <h3>Single-Parent Student Support</h3>
+
+            <p>
+                Explore possible educational assistance for students
+                from single-parent families.
+            </p>
+
+            <button
+                class="continue-btn"
+                type="button"
+                onclick="showMessage('Single-Parent Student Support')">
+                Continue →
+            </button>
+        </article>
+
+    </section>
+
+    <!-- All four information buttons use this same panel -->
+    <section
+        class="information-panel"
+        id="informationPanel"
+        aria-live="polite">
+
+        <h2 id="informationTitle"></h2>
+
+        <div id="informationContent"></div>
+
+        <button
+            type="button"
+            class="back-btn"
+            onclick="backToDashboard()">
+            ← Back to Dashboard
+        </button>
+
+    </section>
+
 </main>
 
-<footer>© SchemeSense AI · Student project prototype</footer>
+<footer>
+    <p>
+        SchemeSense AI | Student Project Demo
+    </p>
+
+    <p style="margin-top: 8px;">
+        Verify scheme eligibility and application details through official
+        government sources before applying.
+    </p>
+</footer>
 
 <script>
-function logout(){
-  sessionStorage.removeItem("schemeDemoLoggedIn");
-  sessionStorage.removeItem("schemeDemoPhone");
-}
+    /*
+     * Logout
+     */
+    function logout() {
+        sessionStorage.removeItem("schemeDemoLoggedIn");
+        sessionStorage.removeItem("schemeDemoPhone");
 
-function openPage(page){
-  window.location.href = new URL(page, window.location.href).href;
-}
+        /*
+         * This dashboard is a static demo.
+         * Return to the login page if your project has one.
+         */
+        const loginPage = "login.html";
 
-function showMessage(category){
-  alert(category + ' information will be added in a future update. Please check official government portals for current details.');
-}
+        if (window.location.protocol === "file:") {
+            window.location.href = loginPage;
+            return;
+        }
+
+        window.location.href = new URL(
+            loginPage,
+            window.location.href
+        ).href;
+    }
+
+
+    /*
+     * Open the existing school or college scholarship pages.
+     */
+    function openPage(page) {
+        window.location.href = new URL(
+            page,
+            window.location.href
+        ).href;
+    }
+
+
+    /*
+     * Information for all six dashboard categories.
+     * The first two categories continue using their existing HTML pages.
+     */
+    const schemeInformation = {
+
+        "Student Project Funding": {
+            title: "💡 Student Project Funding",
+
+            description:
+                "Student Project Funding helps students explore possible financial support for innovative ideas, prototypes, research and academic projects.",
+
+            opportunities: [
+                "Student innovation and prototype development programmes.",
+                "Institution-level project funding and innovation cells.",
+                "Hackathon and innovation challenges that offer awards or support.",
+                "Research opportunities announced by eligible institutions or government organisations."
+            ],
+
+            steps: [
+                "Prepare a clear project idea and explain the problem it solves.",
+                "Create a project proposal with objectives, expected results and estimated expenses.",
+                "Check the eligibility conditions and deadlines of each funding opportunity.",
+                "Ask your college project coordinator or faculty mentor about suitable programmes."
+            ],
+
+            notice:
+                "Funding availability, eligibility, required documents and deadlines depend on the specific programme. This demo does not confirm that a particular funding scheme is currently open."
+        },
+
+
+        "Senior Citizen Welfare": {
+            title: "👴 Senior Citizen Welfare",
+
+            description:
+                "Senior Citizen Welfare covers support services and assistance programmes intended to help older adults maintain their wellbeing and access eligible benefits.",
+
+            opportunities: [
+                "Eligible old-age pension or social security assistance.",
+                "Healthcare and welfare support services.",
+                "Support services for older adults through relevant government departments.",
+                "Information and assistance available through authorised public service centres."
+            ],
+
+            steps: [
+                "Check the current eligibility requirements for the relevant welfare programme.",
+                "Identify the government department or authorised service centre responsible for the scheme.",
+                "Confirm the required documents and application process.",
+                "Use official government sources to verify the current application status and deadlines."
+            ],
+
+            notice:
+                "Benefits and eligibility can vary by scheme. This demo does not determine eligibility or confirm the availability of any particular benefit."
+        },
+
+
+        "Community-Based Scholarships": {
+            title: "🤝 Community-Based Scholarships",
+
+            description:
+                "Some educational assistance programmes consider community category, family income, educational level and other eligibility conditions.",
+
+            opportunities: [
+                "Scholarships administered by relevant government welfare departments.",
+                "Eligible pre-matric and post-matric scholarship programmes.",
+                "Educational assistance programmes based on the published scheme criteria.",
+                "Scholarship opportunities offered through authorised government portals."
+            ],
+
+            steps: [
+                "Identify the scholarship category that applies to the student's circumstances.",
+                "Check the official eligibility conditions, including income and education requirements.",
+                "Prepare the documents requested by the particular programme.",
+                "Apply through the official portal or authorised institution before the deadline."
+            ],
+
+            notice:
+                "Community category alone does not guarantee eligibility. Conditions and available benefits must be checked on the official scheme page."
+        },
+
+
+        "Single-Parent Student Support": {
+            title: "❤️ Single-Parent Student Support",
+
+            description:
+                "Students from single-parent families can explore educational assistance programmes for which they may qualify under the published eligibility rules.",
+
+            opportunities: [
+                "Scholarships based on family income and educational level.",
+                "Eligible welfare-department educational assistance programmes.",
+                "Institution-level financial assistance or fee support, where available.",
+                "Other scholarships whose official eligibility rules cover the student's circumstances."
+            ],
+
+            steps: [
+                "Identify scholarships that match the student's education level and circumstances.",
+                "Check whether the programme has specific family-status or income requirements.",
+                "Review the official list of required documents before applying.",
+                "Ask the college or school scholarship office for help identifying relevant programmes."
+            ],
+
+            notice:
+                "A separate scholarship for every single-parent family is not guaranteed. The relevant programme's official eligibility conditions must be checked."
+        }
+
+    };
+
+
+    /*
+     * Show the information page when one of the four buttons is clicked.
+     * The button labels are matched exactly to the information above.
+     */
+    function showMessage(category) {
+        const information = schemeInformation[category];
+
+        if (!information) {
+            alert("Information is not available for this category yet.");
+            return;
+        }
+
+        const titleElement = document.getElementById("informationTitle");
+        const contentElement = document.getElementById("informationContent");
+        const panel = document.getElementById("informationPanel");
+
+        titleElement.textContent = information.title;
+
+        contentElement.replaceChildren();
+
+        const description = document.createElement("p");
+        description.textContent = information.description;
+        contentElement.appendChild(description);
+
+        const opportunitiesHeading = document.createElement("h3");
+        opportunitiesHeading.textContent = "Available Opportunities to Explore";
+        contentElement.appendChild(opportunitiesHeading);
+
+        const opportunitiesList = document.createElement("ul");
+
+        information.opportunities.forEach(function(item) {
+            const listItem = document.createElement("li");
+            listItem.textContent = item;
+            opportunitiesList.appendChild(listItem);
+        });
+
+        contentElement.appendChild(opportunitiesList);
+
+        const stepsHeading = document.createElement("h3");
+        stepsHeading.textContent = "How to Proceed";
+        contentElement.appendChild(stepsHeading);
+
+        const stepsList = document.createElement("ul");
+
+        information.steps.forEach(function(item) {
+            const listItem = document.createElement("li");
+            listItem.textContent = item;
+            stepsList.appendChild(listItem);
+        });
+
+        contentElement.appendChild(stepsList);
+
+        const notice = document.createElement("div");
+        notice.className = "notice";
+        notice.textContent = information.notice;
+        contentElement.appendChild(notice);
+
+        /*
+         * Hide the cards and display the selected information.
+         */
+        document.getElementById("welcomeSection").style.display = "none";
+        document.getElementById("categoryHeading").style.display = "none";
+        document.getElementById("categoryGrid").style.display = "none";
+
+        panel.style.display = "block";
+
+        panel.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+
+    /*
+     * Return to the dashboard without reloading the website.
+     */
+    function backToDashboard() {
+        document.getElementById("informationPanel").style.display = "none";
+
+        document.getElementById("welcomeSection").style.display = "block";
+        document.getElementById("categoryHeading").style.display = "block";
+        document.getElementById("categoryGrid").style.display = "grid";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
 </script>
+
 </body>
 </html>
