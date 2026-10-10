@@ -1,240 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SchemeSense AI</title>
+<title>SchemeSense AI</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #eef2ff, #f8faff);
-            color: #1e293b;
-            min-height: 100vh;
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5ff;
+    color: #1e293b;
+}
 
-        header {
-            background: #172554;
-            color: white;
-            padding: 22px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
+header {
+    background: #172554;
+    color: white;
+    padding: 22px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+}
 
-        header h1 {
-            font-size: 27px;
-        }
+header h1 {
+    margin: 0;
+}
 
-        header p {
-            color: #c7d2fe;
-            font-size: 14px;
-            margin-top: 6px;
-        }
+header p {
+    color: #c7d2fe;
+    margin-bottom: 0;
+}
 
-        button {
-            cursor: pointer;
-            font-family: inherit;
-        }
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px 20px;
+}
 
-        .logout-btn {
-            background: white;
-            color: #172554;
-            border: none;
-            padding: 11px 22px;
-            border-radius: 8px;
-            font-weight: bold;
-        }
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 38px 24px;
-        }
+.card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 4px 15px #0000000d;
+}
 
-        .welcome-section {
-            margin-bottom: 30px;
-        }
+.card h3 {
+    color: #172554;
+}
 
-        .welcome-section h2 {
-            color: #172554;
-            font-size: 29px;
-            margin-bottom: 10px;
-        }
+.card p {
+    color: #64748b;
+    line-height: 1.7;
+}
 
-        .welcome-section p {
-            color: #64748b;
-            line-height: 1.7;
-        }
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-weight: bold;
+}
 
-        .section-title {
-            color: #172554;
-            font-size: 21px;
-            margin-bottom: 20px;
-        }
+.continue-btn,
+.submit-btn {
+    background: #2563eb;
+    color: white;
+}
 
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 22px;
-        }
+.continue-btn {
+    width: 100%;
+}
 
-        .category-card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.07);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
+.continue-btn:hover,
+.submit-btn:hover {
+    background: #1d4ed8;
+}
 
-        .category-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
-        }
+#formSection,
+#resultsSection {
+    display: none;
+    margin-top: 28px;
+    padding: 25px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px #0000000d;
+}
 
-        .card-icon {
-            font-size: 36px;
-            margin-bottom: 17px;
-        }
+#formTitle,
+#resultsTitle {
+    color: #172554;
+}
 
-        .category-card h3 {
-            color: #172554;
-            font-size: 19px;
-            margin-bottom: 12px;
-        }
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
 
-        .category-card p {
-            color: #64748b;
-            font-size: 14px;
-            line-height: 1.7;
-            margin-bottom: 22px;
-            flex-grow: 1;
-        }
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 
-        .continue-btn {
-            width: 100%;
-            padding: 12px 16px;
-            background: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 14px;
-        }
+.form-group label {
+    font-weight: bold;
+    font-size: 14px;
+}
 
-        .continue-btn:hover {
-            background: #1d4ed8;
-        }
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    font: inherit;
+    background: white;
+}
 
-        #informationPanel {
-            display: none;
-            margin-top: 30px;
-            padding: 28px;
-            background: white;
-            border-radius: 15px;
-            border: 1px solid #dbeafe;
-            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.07);
-        }
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
 
-        #informationTitle {
-            color: #172554;
-            font-size: 25px;
-            margin-bottom: 16px;
-        }
+.full-width {
+    grid-column: 1 / -1;
+}
 
-        #informationContent {
-            color: #475569;
-            line-height: 1.8;
-        }
+.form-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+}
 
-        #informationContent p {
-            margin-bottom: 15px;
-        }
+.back-btn {
+    background: #e2e8f0;
+    color: #172554;
+}
 
-        #informationContent h3 {
-            color: #1e40af;
-            margin: 22px 0 10px;
-        }
+.result-card {
+    border: 1px solid #dbeafe;
+    border-left: 5px solid #2563eb;
+    border-radius: 8px;
+    padding: 18px;
+    margin: 15px 0;
+}
 
-        #informationContent ul {
-            padding-left: 24px;
-            margin-bottom: 20px;
-        }
+.result-card h3 {
+    color: #1d4ed8;
+}
 
-        .notice {
-            background: #eff6ff;
-            border-left: 4px solid #2563eb;
-            border-radius: 6px;
-            padding: 15px;
-            margin: 20px 0;
-            color: #1e3a8a;
-        }
+.result-card ul {
+    line-height: 1.8;
+}
 
-        .back-btn {
-            background: #172554;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-        }
+.notice {
+    background: #fff7ed;
+    border-left: 4px solid #f59e0b;
+    padding: 15px;
+    margin-top: 18px;
+    line-height: 1.7;
+}
 
-        .back-btn:hover {
-            background: #1e40af;
-        }
+.status {
+    padding: 12px;
+    background: #eff6ff;
+    border-radius: 8px;
+    line-height: 1.7;
+}
 
-        footer {
-            text-align: center;
-            padding: 25px 15px;
-            color: #64748b;
-            font-size: 13px;
-            line-height: 1.8;
-        }
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #64748b;
+    font-size: 13px;
+}
 
-        @media (max-width: 900px) {
-            .category-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
+@media (max-width: 850px) {
+    .category-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
 
-        @media (max-width: 600px) {
-            header {
-                padding: 20px;
-            }
+@media (max-width: 600px) {
+    .category-grid,
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
 
-            header h1 {
-                font-size: 23px;
-            }
+    .full-width {
+        grid-column: auto;
+    }
 
-            .container {
-                padding: 25px 16px;
-            }
-
-            .category-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .category-card {
-                padding: 22px;
-            }
-
-            #informationPanel {
-                padding: 22px;
-            }
-        }
-    </style>
+    header {
+        padding: 20px;
+    }
+}
+</style>
 </head>
 
 <body>
@@ -242,368 +220,586 @@
 <header>
     <div>
         <h1>🎓 SchemeSense AI</h1>
-        <p>AI-Powered Tamil Nadu Government Scheme Assistant</p>
+        <p>Government Scheme Eligibility Assistant</p>
     </div>
-
-    <button class="logout-btn" id="logoutButton" type="button">
-        Logout
-    </button>
 </header>
 
 <main class="container">
 
-    <section id="welcomeSection" class="welcome-section">
-        <h2>Welcome to SchemeSense AI 👋</h2>
-        <p>
-            Discover scholarships, financial assistance and welfare schemes.
-            Choose a category below to explore relevant information.
-        </p>
+    <section id="dashboard">
+        <h2>Explore Government Schemes</h2>
+        <p>Select a category and enter the required details to check possible matches.</p>
+
+        <div class="category-grid">
+
+            <article class="card">
+                <h3>🏫 School Scholarships</h3>
+                <p>Explore scholarship opportunities for school students.</p>
+                <button class="continue-btn" data-category="school">
+                    Continue →
+                </button>
+            </article>
+
+            <article class="card">
+                <h3>🎓 College Scholarships</h3>
+                <p>Explore scholarship opportunities for college students.</p>
+                <button class="continue-btn" data-category="college">
+                    Continue →
+                </button>
+            </article>
+
+            <article class="card">
+                <h3>💡 Student Project Funding</h3>
+                <p>Explore potential funding opportunities for student projects.</p>
+                <button class="continue-btn" data-category="funding">
+                    Continue →
+                </button>
+            </article>
+
+            <article class="card">
+                <h3>👴 Senior Citizen Welfare</h3>
+                <p>Explore pension and welfare support programmes.</p>
+                <button class="continue-btn" data-category="senior">
+                    Continue →
+                </button>
+            </article>
+
+            <article class="card">
+                <h3>🤝 Community-Based Scholarships</h3>
+                <p>Explore scholarships using community and education criteria.</p>
+                <button class="continue-btn" data-category="community">
+                    Continue →
+                </button>
+            </article>
+
+            <article class="card">
+                <h3>❤️ Single-Parent Student Support</h3>
+                <p>Explore educational assistance relevant to family circumstances.</p>
+                <button class="continue-btn" data-category="single">
+                    Continue →
+                </button>
+            </article>
+
+        </div>
     </section>
 
-    <h2 id="categoryHeading" class="section-title">
-        Explore Categories
-    </h2>
+    <section id="formSection">
+        <h2 id="formTitle">Enter Details</h2>
+        <p id="formDescription"></p>
 
-    <section class="category-grid" id="categoryGrid">
+        <form id="eligibilityForm">
+            <div class="form-grid" id="formFields"></div>
 
-        <article class="category-card">
-            <div class="card-icon">🏫</div>
-            <h3>School Scholarships</h3>
-            <p>
-                Explore scholarship opportunities and educational assistance
-                for school students.
-            </p>
-            <button class="continue-btn" type="button"
-                    data-action="page"
-                    data-page="school_scholarships.html">
-                Continue →
-            </button>
-        </article>
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">
+                    🔍 Find & Check Eligibility
+                </button>
 
-        <article class="category-card">
-            <div class="card-icon">🎓</div>
-            <h3>College Scholarships</h3>
-            <p>
-                Find scholarship opportunities and financial support
-                for college and university students.
-            </p>
-            <button class="continue-btn" type="button"
-                    data-action="page"
-                    data-page="college_scholarships.html">
-                Continue →
-            </button>
-        </article>
-
-        <article class="category-card">
-            <div class="card-icon">💡</div>
-            <h3>Student Project Funding</h3>
-            <p>
-                Explore funding opportunities for student projects,
-                innovation, prototypes and research.
-            </p>
-            <button class="continue-btn" type="button"
-                    data-action="info"
-                    data-category="funding">
-                Continue →
-            </button>
-        </article>
-
-        <article class="category-card">
-            <div class="card-icon">👴</div>
-            <h3>Senior Citizen Welfare</h3>
-            <p>
-                Learn about welfare assistance, social security and
-                support services for senior citizens.
-            </p>
-            <button class="continue-btn" type="button"
-                    data-action="info"
-                    data-category="senior">
-                Continue →
-            </button>
-        </article>
-
-        <article class="category-card">
-            <div class="card-icon">🤝</div>
-            <h3>Community-Based Scholarships</h3>
-            <p>
-                Explore educational assistance based on the eligibility
-                criteria of relevant scholarship programmes.
-            </p>
-            <button class="continue-btn" type="button"
-                    data-action="info"
-                    data-category="community">
-                Continue →
-            </button>
-        </article>
-
-        <article class="category-card">
-            <div class="card-icon">❤️</div>
-            <h3>Single-Parent Student Support</h3>
-            <p>
-                Explore possible educational assistance for students
-                from single-parent families.
-            </p>
-            <button class="continue-btn" type="button"
-                    data-action="info"
-                    data-category="single">
-                Continue →
-            </button>
-        </article>
-
+                <button type="button" class="back-btn" id="backToDashboard">
+                    ← Back to Dashboard
+                </button>
+            </div>
+        </form>
     </section>
 
-    <section id="informationPanel" aria-live="polite">
-        <h2 id="informationTitle"></h2>
-        <div id="informationContent"></div>
+    <section id="resultsSection">
+        <h2 id="resultsTitle">Eligibility Results</h2>
+        <div id="resultsContent"></div>
 
-        <button class="back-btn" id="backButton" type="button">
-            ← Back to Dashboard
+        <button type="button" class="back-btn" id="backToForm">
+            ← Edit Details
+        </button>
+
+        <button type="button" class="submit-btn" id="newSearch">
+            New Search
         </button>
     </section>
 
 </main>
 
 <footer>
-    <p>SchemeSense AI | Student Project Demo</p>
-    <p>
-        Verify scheme eligibility and application details through
-        official government sources before applying.
-    </p>
+    SchemeSense AI | Student Project Demo
+    <br>
+    Preliminary matching only. Verify all requirements through official scheme sources.
 </footer>
 
 <script>
 "use strict";
 
-/* Category information */
-const schemeInformation = {
+/*
+ * Four detailed forms.
+ * Add verified scheme rules before treating any result as an actual match.
+ */
+
+const categoryConfig = {
 
     funding: {
         title: "💡 Student Project Funding",
+        description: "Enter your project details to explore potential funding opportunities.",
 
-        description:
-            "Student Project Funding helps students explore potential financial support for innovative ideas, prototypes, research and academic projects.",
-
-        opportunities: [
-            "College innovation centres and project development programmes.",
-            "Hackathons and innovation competitions offering eligible awards.",
-            "Research opportunities announced by institutions or government organisations.",
-            "Eligible student entrepreneurship and prototype development programmes."
-        ],
-
-        steps: [
-            "Prepare a clear explanation of your project idea.",
-            "Write a project proposal with objectives and estimated expenses.",
-            "Ask your faculty mentor or college project coordinator about funding opportunities.",
-            "Check the official eligibility conditions and application deadline."
-        ],
-
-        notice:
-            "This demo provides general guidance only. It does not confirm that any particular funding programme is currently open."
+        fields: [
+            {name:"projectTitle", label:"Project Title", type:"text", required:true},
+            {name:"domain", label:"Project Domain", type:"select", required:true,
+                options:["Web Development","Artificial Intelligence","Cloud Computing","Cybersecurity","Healthcare","Agriculture","Education","Environment","Other"]},
+            {name:"studentLevel", label:"Student Level", type:"select", required:true,
+                options:["School","Diploma","Undergraduate","Postgraduate","Research Scholar"]},
+            {name:"institution", label:"Institution Name", type:"text", required:true},
+            {name:"institutionType", label:"Institution Type", type:"select", required:true,
+                options:["Government","Government-aided","Private","Other"]},
+            {name:"projectStage", label:"Project Stage", type:"select", required:true,
+                options:["Idea","Planning","Prototype","Working Model","Completed"]},
+            {name:"teamSize", label:"Team Size", type:"number", min:1, required:true},
+            {name:"budget", label:"Estimated Budget (₹)", type:"number", min:0, required:true},
+            {name:"prototype", label:"Prototype Available?", type:"select", required:true,
+                options:["Yes","No"]},
+            {name:"previousFunding", label:"Previous Funding Received?", type:"select", required:true,
+                options:["Yes","No"]},
+            {name:"abstract", label:"Project Abstract", type:"textarea", required:true, full:true}
+        ]
     },
 
     senior: {
         title: "👴 Senior Citizen Welfare",
+        description: "Enter the applicant's details to explore potentially relevant welfare programmes.",
 
-        description:
-            "Senior Citizen Welfare includes assistance and services intended to support eligible older adults.",
-
-        opportunities: [
-            "Eligible old-age pension or social security programmes.",
-            "Healthcare and welfare support services.",
-            "Government assistance available through relevant departments.",
-            "Information and help through authorised public service centres."
-        ],
-
-        steps: [
-            "Identify the relevant welfare programme.",
-            "Check the age, income and other eligibility requirements.",
-            "Confirm the required documents with the responsible department.",
-            "Use an official government source to check current application details."
-        ],
-
-        notice:
-            "Benefits and eligibility vary by programme. This website does not determine eligibility or confirm benefit approval."
+        fields: [
+            {name:"age", label:"Age", type:"number", min:0, max:120, required:true},
+            {name:"state", label:"State", type:"select", required:true,
+                options:["Tamil Nadu","Other Indian State"]},
+            {name:"district", label:"District", type:"text", required:true},
+            {name:"income", label:"Annual Family Income (₹)", type:"number", min:0, required:true},
+            {name:"pension", label:"Currently Receiving Pension?", type:"select", required:true,
+                options:["Yes","No","Not Sure"]},
+            {name:"disability", label:"Disability Status", type:"select", required:true,
+                options:["Yes","No","Prefer not to say"]},
+            {name:"living", label:"Living Arrangement", type:"select", required:true,
+                options:["Living alone","Living with family","Other","Prefer not to say"]},
+            {name:"rationCard", label:"Ration Card Available?", type:"select", required:true,
+                options:["Yes","No","Not Sure"]},
+            {name:"aadhaar", label:"Aadhaar Available?", type:"select", required:true,
+                options:["Yes","No","Not Sure"]}
+        ]
     },
 
     community: {
         title: "🤝 Community-Based Scholarships",
+        description: "Enter educational and eligibility details to explore possible scholarship matches.",
 
-        description:
-            "Some scholarships consider community category, family income, education level and other published eligibility criteria.",
-
-        opportunities: [
-            "Eligible pre-matric and post-matric scholarship programmes.",
-            "Scholarships administered by relevant government welfare departments.",
-            "Educational assistance offered through authorised institutions.",
-            "Other scholarship programmes for which the student meets the official criteria."
-        ],
-
-        steps: [
-            "Identify the scholarship category that applies to your circumstances.",
-            "Review the official eligibility and income requirements.",
-            "Prepare the documents requested by the particular programme.",
-            "Apply through the official portal or authorised institution before the deadline."
-        ],
-
-        notice:
-            "Community category alone does not guarantee eligibility. Verify all conditions through the official scheme information."
+        fields: [
+            {name:"education", label:"Education Level", type:"select", required:true,
+                options:["School","Diploma","Undergraduate","Postgraduate","Research"]},
+            {name:"course", label:"Course Name", type:"text", required:true},
+            {name:"year", label:"Current Year of Study", type:"select", required:true,
+                options:["Class 1-5","Class 6-8","Class 9-10","Class 11-12","Year 1","Year 2","Year 3","Year 4","Other"]},
+            {name:"institution", label:"Institution Name", type:"text", required:true},
+            {name:"institutionType", label:"Institution Type", type:"select", required:true,
+                options:["Government","Government-aided","Private","Other"]},
+            {name:"community", label:"Community Category", type:"select", required:true,
+                options:["SC","ST","OBC/BC/MBC","General/Other","Prefer not to say"]},
+            {name:"income", label:"Annual Family Income (₹)", type:"number", min:0, required:true},
+            {name:"marks", label:"Previous Exam Percentage (if applicable)", type:"number", min:0, max:100, required:false},
+            {name:"existingScholarship", label:"Already Receiving a Scholarship?", type:"select", required:true,
+                options:["Yes","No","Not Sure"]},
+            {name:"hostel", label:"Hostel Student?", type:"select", required:true,
+                options:["Yes","No"]},
+            {name:"disability", label:"Disability Status", type:"select", required:true,
+                options:["Yes","No","Prefer not to say"]}
+        ]
     },
 
     single: {
         title: "❤️ Single-Parent Student Support",
+        description: "Enter educational and family details to explore potentially relevant assistance.",
 
-        description:
-            "Students from single-parent families can explore educational assistance programmes for which they may qualify.",
+        fields: [
+            {name:"age", label:"Student Age", type:"number", min:0, max:120, required:true},
+            {name:"state", label:"State", type:"select", required:true,
+                options:["Tamil Nadu","Other Indian State"]},
+            {name:"district", label:"District", type:"text", required:true},
+            {name:"education", label:"Education Level", type:"select", required:true,
+                options:["School","Diploma","Undergraduate","Postgraduate","Research"]},
+            {name:"course", label:"Course / Class", type:"text", required:true},
+            {name:"institution", label:"Institution Name", type:"text", required:true},
+            {name:"institutionType", label:"Institution Type", type:"select", required:true,
+                options:["Government","Government-aided","Private","Other"]},
+            {name:"income", label:"Annual Family Income (₹)", type:"number", min:0, required:true},
+            {name:"parentStatus", label:"Family Circumstance", type:"select", required:true,
+                options:["Single parent - widowed","Single parent - separated","Single parent - other circumstances","Prefer not to say"]},
+            {name:"occupation", label:"Parent / Guardian Occupation", type:"select", required:true,
+                options:["Employed","Self-employed","Daily wage worker","Unemployed","Other","Prefer not to say"]},
+            {name:"governmentAssistance", label:"Receiving Government Assistance?", type:"select", required:true,
+                options:["Yes","No","Not Sure"]},
+            {name:"marks", label:"Previous Exam Percentage (if applicable)", type:"number", min:0, max:100, required:false},
+            {name:"scholarship", label:"Already Receiving a Scholarship?", type:"select", required:true,
+                options:["Yes","No","Not Sure"]},
+            {name:"hostel", label:"Hostel Student?", type:"select", required:true,
+                options:["Yes","No"]}
+        ]
+    },
 
-        opportunities: [
-            "Scholarships based on family income and education level.",
-            "Eligible educational assistance through relevant welfare departments.",
-            "Institution-level financial assistance, where available.",
-            "Other scholarships whose official eligibility rules cover the student's circumstances."
-        ],
+    school: {
+        title: "🏫 School Scholarships",
+        description: "Enter school and family details.",
 
-        steps: [
-            "Identify scholarships relevant to the student's education level.",
-            "Check whether the programme includes family-status or income requirements.",
-            "Review the official document checklist.",
-            "Contact your school or college scholarship office for guidance."
-        ],
+        fields: [
+            {name:"age", label:"Student Age", type:"number", min:0, max:120, required:true},
+            {name:"class", label:"Current Class", type:"select", required:true,
+                options:["Class 1-5","Class 6-8","Class 9-10","Class 11-12"]},
+            {name:"school", label:"School Name", type:"text", required:true},
+            {name:"schoolType", label:"School Type", type:"select", required:true,
+                options:["Government","Government-aided","Private"]},
+            {name:"state", label:"State", type:"select", required:true,
+                options:["Tamil Nadu","Other Indian State"]},
+            {name:"income", label:"Annual Family Income (₹)", type:"number", min:0, required:true},
+            {name:"community", label:"Community Category", type:"select", required:true,
+                options:["SC","ST","OBC/BC/MBC","General/Other","Prefer not to say"]}
+        ]
+    },
 
-        notice:
-            "A separate scholarship is not guaranteed for every single-parent family. Eligibility depends on the rules of each programme."
+    college: {
+        title: "🎓 College Scholarships",
+        description: "Enter college and family details.",
+
+        fields: [
+            {name:"age", label:"Student Age", type:"number", min:0, max:120, required:true},
+            {name:"course", label:"Degree / Course", type:"text", required:true},
+            {name:"year", label:"Current Year", type:"select", required:true,
+                options:["Year 1","Year 2","Year 3","Year 4","Year 5 or above"]},
+            {name:"college", label:"College Name", type:"text", required:true},
+            {name:"institutionType", label:"Institution Type", type:"select", required:true,
+                options:["Government","Government-aided","Private","Other"]},
+            {name:"income", label:"Annual Family Income (₹)", type:"number", min:0, required:true},
+            {name:"community", label:"Community Category", type:"select", required:true,
+                options:["SC","ST","OBC/BC/MBC","General/Other","Prefer not to say"]},
+            {name:"firstGraduate", label:"First-Generation Graduate?", type:"select", required:true,
+                options:["Yes","No","Not Sure"]}
+        ]
     }
-
 };
 
 
-/* Open existing scholarship pages */
-function openPage(page) {
-    window.location.href = new URL(page, window.location.href).href;
+/* Escape text before displaying user-provided values in HTML. */
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, function(character) {
+        const entities = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        };
+
+        return entities[character];
+    });
 }
 
 
-/* Display a category's information */
-function showCategory(category) {
-    const info = schemeInformation[category];
+/* Build the appropriate form when a category is selected. */
+let currentCategory = null;
+let currentDetails = null;
 
-    if (!info) {
-        console.error("Category not found:", category);
-        alert("Information could not be found for this category.");
+const dashboard = document.getElementById("dashboard");
+const formSection = document.getElementById("formSection");
+const resultsSection = document.getElementById("resultsSection");
+const formFields = document.getElementById("formFields");
+
+document.querySelectorAll("[data-category]").forEach(function(button) {
+    button.addEventListener("click", function() {
+        openCategory(button.dataset.category);
+    });
+});
+
+
+function openCategory(category) {
+    const config = categoryConfig[category];
+
+    if (!config) {
+        alert("Category not found.");
         return;
     }
 
-    const title = document.getElementById("informationTitle");
-    const content = document.getElementById("informationContent");
-    const panel = document.getElementById("informationPanel");
+    currentCategory = category;
 
-    title.textContent = info.title;
-    content.replaceChildren();
+    document.getElementById("formTitle").textContent = config.title;
+    document.getElementById("formDescription").textContent = config.description;
 
-    const description = document.createElement("p");
-    description.textContent = info.description;
-    content.appendChild(description);
+    formFields.replaceChildren();
 
-    const opportunitiesHeading = document.createElement("h3");
-    opportunitiesHeading.textContent = "Opportunities to Explore";
-    content.appendChild(opportunitiesHeading);
+    config.fields.forEach(function(field) {
+        const group = document.createElement("div");
+        group.className = "form-group" + (field.full ? " full-width" : "");
 
-    const opportunitiesList = document.createElement("ul");
+        const label = document.createElement("label");
+        label.htmlFor = "field-" + field.name;
+        label.textContent = field.label;
 
-    info.opportunities.forEach(function(item) {
-        const li = document.createElement("li");
-        li.textContent = item;
-        opportunitiesList.appendChild(li);
+        let input;
+
+        if (field.type === "select") {
+            input = document.createElement("select");
+
+            const placeholder = document.createElement("option");
+            placeholder.value = "";
+            placeholder.textContent = "Select an option";
+            input.appendChild(placeholder);
+
+            field.options.forEach(function(optionText) {
+                const option = document.createElement("option");
+                option.value = optionText;
+                option.textContent = optionText;
+                input.appendChild(option);
+            });
+
+        } else if (field.type === "textarea") {
+            input = document.createElement("textarea");
+
+        } else {
+            input = document.createElement("input");
+            input.type = field.type;
+
+            if (field.min !== undefined) input.min = field.min;
+            if (field.max !== undefined) input.max = field.max;
+        }
+
+        input.id = "field-" + field.name;
+        input.name = field.name;
+        input.required = Boolean(field.required);
+
+        group.appendChild(label);
+        group.appendChild(input);
+        formFields.appendChild(group);
     });
 
-    content.appendChild(opportunitiesList);
+    dashboard.style.display = "none";
+    resultsSection.style.display = "none";
+    formSection.style.display = "block";
 
-    const stepsHeading = document.createElement("h3");
-    stepsHeading.textContent = "How to Proceed";
-    content.appendChild(stepsHeading);
+    window.scrollTo({top: 0, behavior: "smooth"});
+}
 
-    const stepsList = document.createElement("ul");
 
-    info.steps.forEach(function(item) {
-        const li = document.createElement("li");
-        li.textContent = item;
-        stepsList.appendChild(li);
+/*
+ * Preliminary category-level screening.
+ *
+ * These are NOT verified official scheme rules.
+ * Do not treat these results as confirmed eligibility.
+ */
+function checkEligibility(category, details) {
+    const results = [];
+
+    if (category === "funding") {
+        results.push({
+            name: "Student Innovation / Project Funding Opportunities",
+            reason: "Your project information has been collected for preliminary screening.",
+            documents: [
+                "Project proposal",
+                "Estimated budget",
+                "Institution or student proof",
+                "Prototype details, if requested"
+            ],
+            next: "Check the specific programme's project domain, student-level and budget requirements."
+        });
+    }
+
+    if (category === "senior") {
+        if (Number(details.age) < 60) {
+            return {
+                matches: [],
+                message: "The applicant is under 60. Some senior-citizen programmes use an age threshold of 60 or above, but individual scheme rules vary."
+            };
+        }
+
+        results.push({
+            name: "Senior Citizen Welfare Programmes",
+            reason: "The applicant meets the preliminary age screen of 60 or above. Other conditions have not yet been verified.",
+            documents: [
+                "Age proof",
+                "Address proof",
+                "Income documents, if required",
+                "Bank details, if required by the scheme"
+            ],
+            next: "Verify the particular programme's income, residence, pension and other conditions."
+        });
+    }
+
+    if (category === "community") {
+        results.push({
+            name: "Community-Based Scholarship Opportunities",
+            reason: "The educational, income and community details are available for comparison. A scheme-specific match is not yet confirmed.",
+            documents: [
+                "Education or enrolment proof",
+                "Income certificate, if required",
+                "Community certificate, if required",
+                "Previous examination marks, if required"
+            ],
+            next: "Compare the student's details with the published eligibility rules for each scholarship."
+        });
+    }
+
+    if (category === "single") {
+        results.push({
+            name: "Educational Assistance for Eligible Students",
+            reason: "The student's family circumstances and education details have been recorded. A specific single-parent benefit has not been confirmed.",
+            documents: [
+                "Student identity or enrolment proof",
+                "Income documents, if required",
+                "Family-status supporting documents, if required",
+                "Previous examination marks, if required"
+            ],
+            next: "Look for schemes whose official rules specifically cover the student's circumstances. Do not assume that all scholarships provide single-parent benefits."
+        });
+    }
+
+    if (category === "school") {
+        results.push({
+            name: "School Scholarship Opportunities",
+            reason: "School and family details have been collected for preliminary screening.",
+            documents: [
+                "School enrolment proof",
+                "Income certificate, if required",
+                "Community certificate, if required",
+                "Marks statement, if required"
+            ],
+            next: "Verify the class, school type, income and other conditions for each official scholarship."
+        });
+    }
+
+    if (category === "college") {
+        results.push({
+            name: "College Scholarship Opportunities",
+            reason: "College and family details have been collected for preliminary screening.",
+            documents: [
+                "College enrolment proof",
+                "Income certificate, if required",
+                "Community certificate, if required",
+                "Previous marks statement, if required"
+            ],
+            next: "Verify the institution, course, income and other conditions for each official scholarship."
+        });
+    }
+
+    return {matches: results, message: ""};
+}
+
+
+/* Collect submitted details and show the screening results. */
+document.getElementById("eligibilityForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    if (!currentCategory) {
+        alert("Please select a category first.");
+        return;
+    }
+
+    const config = categoryConfig[currentCategory];
+    const formData = new FormData(event.target);
+
+    const details = {};
+
+    config.fields.forEach(function(field) {
+        details[field.name] = String(formData.get(field.name) || "").trim();
     });
 
-    content.appendChild(stepsList);
+    currentDetails = details;
+
+    const screening = checkEligibility(currentCategory, details);
+
+    displayResults(config.title, screening, details);
+
+    formSection.style.display = "none";
+    resultsSection.style.display = "block";
+
+    window.scrollTo({top: 0, behavior: "smooth"});
+});
+
+
+function displayResults(title, screening, details) {
+    document.getElementById("resultsTitle").textContent =
+        "🔎 Results: " + title;
+
+    const container = document.getElementById("resultsContent");
+    container.replaceChildren();
+
+    const intro = document.createElement("p");
+    intro.className = "status";
+    intro.textContent =
+        "Preliminary screening only. The result is not an official eligibility decision.";
+    container.appendChild(intro);
+
+    if (screening.message) {
+        const message = document.createElement("div");
+        message.className = "result-card";
+        message.textContent = screening.message;
+        container.appendChild(message);
+    }
+
+    screening.matches.forEach(function(item) {
+        const card = document.createElement("article");
+        card.className = "result-card";
+
+        const heading = document.createElement("h3");
+        heading.textContent = "Potential opportunity: " + item.name;
+        card.appendChild(heading);
+
+        const reason = document.createElement("p");
+        reason.textContent = item.reason;
+        card.appendChild(reason);
+
+        const docsHeading = document.createElement("h4");
+        docsHeading.textContent = "Documents to check";
+        card.appendChild(docsHeading);
+
+        const list = document.createElement("ul");
+
+        item.documents.forEach(function(documentName) {
+            const li = document.createElement("li");
+            li.textContent = documentName;
+            list.appendChild(li);
+        });
+
+        card.appendChild(list);
+
+        const next = document.createElement("p");
+        next.textContent = "Next step: " + item.next;
+        card.appendChild(next);
+
+        container.appendChild(card);
+    });
 
     const notice = document.createElement("div");
     notice.className = "notice";
-    notice.textContent = info.notice;
-    content.appendChild(notice);
+    notice.textContent =
+        "Important: This demo does not yet contain verified, scheme-by-scheme government eligibility rules. It cannot confirm that a particular scheme is open or that the applicant qualifies. Check the official scheme notification before applying.";
 
-    document.getElementById("welcomeSection").hidden = true;
-    document.getElementById("categoryHeading").hidden = true;
-    document.getElementById("categoryGrid").hidden = true;
-
-    panel.style.display = "block";
-
-    panel.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
+    container.appendChild(notice);
 }
 
 
-/* Handle all Continue buttons from one event listener */
-document.getElementById("categoryGrid").addEventListener("click", function(event) {
-
-    const button = event.target.closest("button[data-action]");
-
-    if (!button) {
-        return;
-    }
-
-    const action = button.dataset.action;
-
-    if (action === "page") {
-        const page = button.dataset.page;
-
-        if (page) {
-            openPage(page);
-        }
-
-        return;
-    }
-
-    if (action === "info") {
-        const category = button.dataset.category;
-
-        if (category) {
-            showCategory(category);
-        }
-    }
+document.getElementById("backToDashboard").addEventListener("click", function() {
+    formSection.style.display = "none";
+    dashboard.style.display = "block";
+    window.scrollTo({top: 0, behavior: "smooth"});
 });
 
 
-/* Return to the dashboard */
-document.getElementById("backButton").addEventListener("click", function() {
-    document.getElementById("informationPanel").style.display = "none";
-
-    document.getElementById("welcomeSection").hidden = false;
-    document.getElementById("categoryHeading").hidden = false;
-    document.getElementById("categoryGrid").hidden = false;
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+document.getElementById("backToForm").addEventListener("click", function() {
+    resultsSection.style.display = "none";
+    formSection.style.display = "block";
+    window.scrollTo({top: 0, behavior: "smooth"});
 });
 
 
-/* Logout demo */
-document.getElementById("logoutButton").addEventListener("click", function() {
-    sessionStorage.removeItem("schemeDemoLoggedIn");
-    sessionStorage.removeItem("schemeDemoPhone");
+document.getElementById("newSearch").addEventListener("click", function() {
+    resultsSection.style.display = "none";
+    formSection.style.display = "none";
+    dashboard.style.display = "block";
 
-    /*
-     * Change login.html to your actual login page filename if needed.
-     */
-    window.location.href = new URL("login.html", window.location.href).href;
+    currentCategory = null;
+    currentDetails = null;
+
+    document.getElementById("eligibilityForm").reset();
+
+    window.scrollTo({top: 0, behavior: "smooth"});
 });
 </script>
 
